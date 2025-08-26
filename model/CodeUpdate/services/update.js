@@ -31,9 +31,9 @@ class UpdateService {
     const tokens = Object.fromEntries(repos.map(({ provider, token }) => [ provider, token ]))
     let totalUpdates = 0
 
-    for (const repoConfig of List) {
-      totalUpdates += await this.checkRepoConfigUpdates(repoConfig, tokens, isAuto, e)
-    }
+    const cache = {}
+    for (const repoConfig of List)
+      totalUpdates += await this.checkRepoConfigUpdates(repoConfig, tokens, isAuto, e, cache)
 
     logger.info(
       totalUpdates > 0
@@ -61,7 +61,8 @@ class UpdateService {
     { AutoPath = false, repos = [], Exclude = [], Group = [], QQ = [] },
     tokens,
     isAuto,
-    e
+    e,
+    cache,
   ) {
     const repoList = this.buildRepoList(repos, AutoPath, Exclude)
 
@@ -76,7 +77,6 @@ class UpdateService {
       }))
     )
 
-    const cache = {}
     const results = await Promise.all(
       updateRequests
         .filter(({ repos }) => repos.length > 0)
