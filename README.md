@@ -8,7 +8,7 @@
 
 ![Nodejs](https://img.shields.io/badge/-Node.js-3C873A?style=flat&logo=Node.js&logoColor=white)
 [![Gitmoji](https://img.shields.io/badge/gitmoji-%20😜%20😍-FFDD67.svg?style=flat-square)](https://gitmoji.dev)
-[![license](https://img.shields.io/github/license/Denfenglai/DF-Plugin.svg?style=flat&logo=gnu)](https://github.com/Denfenglai/DF-Plugin/blob/master/LICENSE)
+[![license](https://img.shields.io/github/license/Denfenglai/DF-Plugin.svg?style=flat&logo=gnu)](https://github.com/Denfenglai/DF-Plugin/blob/v2/LICENSE)
 
 [![DF-Plugin](https://img.shields.io/github/package-json/v/Denfenglai/DF-Plugin?label=DF-Plugin&color=green)](https://github.com/DenFengLai/DF-Plugin)
 [![Miao-Yunzai V3](https://img.shields.io/github/package-json/v/yoimiya-kokomi/Miao-Yunzai?label=Miao-Yunzai&color=yellow)](https://github.com/yoimiya-kokomi/Miao-Yunzai)
@@ -150,6 +150,10 @@ pnpm install -P
 1. 本项目仅供学习和交流使用，禁止用于任何商业用途及违法用途。
 
 2. 项目中的图片、API等资源均来自互联网，如有侵权请及时联系开发者，我们会尽快处理删除相关内容。
+
+## 📃 许可证
+
+本项目遵循 [GNU General Public License v3.0](./LICENSE) 协议。
 
 ## 🍀 意见反馈
 
