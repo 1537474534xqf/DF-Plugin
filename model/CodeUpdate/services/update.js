@@ -32,8 +32,9 @@ class UpdateService {
     let totalUpdates = 0
 
     const cache = {}
-    for (const repoConfig of List)
+    for (const repoConfig of List) {
       totalUpdates += await this.checkRepoConfigUpdates(repoConfig, tokens, isAuto, e, cache)
+    }
 
     logger.info(
       totalUpdates > 0
@@ -55,6 +56,7 @@ class UpdateService {
    * @param {Record<string, string>} tokens 各平台 token
    * @param {boolean} isAuto 是否自动触发
    * @param {object} e 消息事件对象
+   * @param {object} cache  缓存对象
    * @returns {Promise<number>} 返回获取到的更新条数
    */
   async checkRepoConfigUpdates(
@@ -62,7 +64,7 @@ class UpdateService {
     tokens,
     isAuto,
     e,
-    cache,
+    cache
   ) {
     const repoList = this.buildRepoList(repos, AutoPath, Exclude)
 
@@ -176,6 +178,7 @@ class UpdateService {
    * @param {string} type 更新类型（commits 或 releases）
    * @param {string} key redis key
    * @param {boolean} isAuto 是否自动模式
+   * @param cache
    * @returns {Promise<object[]>} 返回更新内容数组
    */
   async fetchUpdateForRepo(repoPaths, platform, token, type, key, isAuto, cache) {

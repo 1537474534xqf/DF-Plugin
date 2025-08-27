@@ -12,7 +12,8 @@ import { logger } from "#lib"
  * @param {string|string[]} token 用于认证的 API 令牌。
  * @param {string} redisKeyPrefix Redis 缓存键的前缀。
  * @param {boolean} isAuto 是否为自动更新检查。
- * @returns {Promise<object[]>} 处理后的更新信息数组。
+ * @param {object} cache 缓存对象
+ *  * @returns {Promise<object[]>} 处理后的更新信息数组。
  */
 export const fetchCommits = (repoList, source, token, redisKeyPrefix, isAuto, cache) =>
   fetchUpdates(repoList, source, token, "commits", redisKeyPrefix, isAuto, cache)
@@ -24,6 +25,7 @@ export const fetchCommits = (repoList, source, token, redisKeyPrefix, isAuto, ca
  * @param {string|string[]} token 用于认证的 API 令牌。
  * @param {string} redisKeyPrefix Redis 缓存键的前缀。
  * @param {boolean} isAuto 是否为自动更新检查。
+ * @param {object} cache 缓存对象
  * @returns {Promise<object[]>} 处理后的更新信息数组。
  */
 export const fetchReleases = (repoList, source, token, redisKeyPrefix, isAuto, cache) =>
@@ -37,13 +39,14 @@ export const fetchReleases = (repoList, source, token, redisKeyPrefix, isAuto, c
  * @param {string} type 要获取的数据类型（"commits" 或 "releases"）。
  * @param {string} redisKeyPrefix Redis 缓存键的前缀。
  * @param {boolean} isAuto 是否为自动更新检查。
+ * @param {object} cache 缓存对象
  * @returns {Promise<object[]>} 处理后的更新信息数组。
  */
 async function fetchUpdates(repoList, source, token, type, redisKeyPrefix, isAuto, cache) {
   const content = []
   await Promise.all(repoList.map(async(repo) => {
     if (!repo) return
-    const key = `${type}|${repo}`
+    const key = `${source}|${type}|${repo}`
     if (cache?.[key]) return content.push(cache[key])
     try {
       logger.debug(`请求 ${logger.magenta(source)} ${type}: ${logger.cyan(repo)}`)
@@ -74,7 +77,7 @@ async function fetchUpdates(repoList, source, token, type, redisKeyPrefix, isAut
         ? formatCommitInfo(data[0], source, path, branch)
         : formatReleaseInfo(data[0], source, repo)
       content.push(info)
-      if (cache) cache[key] = info
+      if (cache && info) cache[key] = info
     } catch (error) {
       logger.error(`获取 ${logger.magenta(source)} ${type} ${logger.cyan(repo)} 数据出错: ${error?.stack || error}`)
     }
