@@ -13,7 +13,7 @@ import { logger } from "#lib"
  * @param {string} redisKeyPrefix Redis 缓存键的前缀。
  * @param {boolean} isAuto 是否为自动更新检查。
  * @param {object} cache 缓存对象
- *  * @returns {Promise<object[]>} 处理后的更新信息数组。
+ * @returns {Promise<object[]>} 处理后的更新信息数组。
  */
 export const fetchCommits = (repoList, source, token, redisKeyPrefix, isAuto, cache) =>
   fetchUpdates(repoList, source, token, "commits", redisKeyPrefix, isAuto, cache)
@@ -50,8 +50,8 @@ async function fetchUpdates(repoList, source, token, type, redisKeyPrefix, isAut
     if (cache?.[key]) return content.push(cache[key])
     try {
       logger.debug(`请求 ${logger.magenta(source)} ${type}: ${logger.cyan(repo)}`)
-      let [ path, branch ] = type === "commits" ? repo.split(":") : [ repo ]
-      if (!branch) branch = AutoPathBranch[path]
+      let [ path, branch ] = repo.split(":")
+      if (!branch && type === "commits") branch = AutoPathBranch[path]
       if (Array.isArray(token)) token = lodash.sample(token)
       let data = await GitApi.getRepositoryData(path, source, type, token, branch)
       if (data === "return") return

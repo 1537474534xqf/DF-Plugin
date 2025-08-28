@@ -18,18 +18,23 @@ export default new class {
    * @returns {Promise<object[]>} 提交数据或false（请求失败）
    */
   async getRepositoryData(repo, source, type = "commits", token, sha) {
-    const a = Config.CodeUpdate.repos.reduce((acc, item) => {
+    const CfgApiUrl = Config.CodeUpdate.repos.reduce((acc, item) => {
       acc[item.provider] = item.ApiUrl
       return acc
     }, {})
-    const isGitHub = false, baseURL = a[source] || GitUrl[source]
+    let isGitHub = false
+    const baseURL = CfgApiUrl[source] || GitUrl[source]
 
+    if (source.toLowerCase === "github") isGitHub = true
     if (!baseURL) {
       logger.error(`未知数据源: ${source}`)
       return "return"
     }
 
-    const path = sha ? `${repo}/commits/${sha}` : `${repo}/${type}?per_page=1`
+    let path
+    if (type === "commits" && sha) path = `${repo}/commits/${sha}`
+    else path = `${repo}/${type}?per_page=1`
+
     let url = `${baseURL}/${path}`
 
     if (!isGitHub && token) {
