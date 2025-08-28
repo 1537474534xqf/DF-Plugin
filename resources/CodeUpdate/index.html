@@ -27,14 +27,15 @@
               <snap>Releases</snap>
               {{/if}}
             </div>
-            {{if item.name.branch}}
+            {{if item.name.branch || item.name.tag || item.name.sha}}
             <div class="branch">
-              <img src="{{pluResPath}}/CodeUpdate/icon/branch.svg"> {{item.name.branch}}
-            </div>
-            {{/if}}
-            {{if item.name.tag}}
-            <div class="branch">
-              <img src="{{pluResPath}}/CodeUpdate/icon/tag.svg"> {{item.name.tag}}
+              {{if item.name.branch || item.name.tag}}
+                <img src="{{pluResPath}}/CodeUpdate/icon/{{item.name.branch ? "branch" : "tag"}}.svg"> {{item.name.branch ?? item.name.tag}}
+                &nbsp;
+              {{/if}}
+              {{if item.name.sha}}
+                <img src="{{pluResPath}}/CodeUpdate/icon/sha.svg"> {{item.name.sha}}
+              {{/if}}
             </div>
             {{/if}}
             <div class="dec">

@@ -6,7 +6,7 @@ import path from "node:path"
 import { imagePoke } from "#model"
 
 export function formatCommitInfo(data, source, repo, branch) {
-  const { author, committer, commit, stats, files } = data
+  const { author, committer, commit, stats, files, sha } = data
   const authorName = `<span>${commit.author.name}</span>`
   const committerName = `<span>${commit.committer.name}</span>`
   const authorTime = `<span>${timeAgo(commit.author.date)}</span>`
@@ -27,6 +27,7 @@ export function formatCommitInfo(data, source, repo, branch) {
       source,
       repo,
       branch,
+      sha: sha.slice(0, 5).toUpperCase(),
       authorStart: commit.author.name?.[0] ?? "?",
       committerStart: commit.committer.name?.[0] ?? "?"
     },
