@@ -137,17 +137,6 @@ body {
 .list .item .title .desc ol {
   padding-left: 14px;
 }
-.list .item .title .desc ul li,
-.list .item .title .desc ol li {
-  margin: 0;
-  padding: 0;
-  line-height: 0.8;
-  text-indent: 0;
-}
-.list .item .title .desc ul li::marker,
-.list .item .title .desc ol li::marker {
-  line-height: 1;
-}
 .list .item .title .desc a {
   color: #90d0e4;
   text-decoration: none;
