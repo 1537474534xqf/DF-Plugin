@@ -71,7 +71,9 @@ class UpdateService {
     /** @type {Array<{repos: string[], platform: string, token: string, type: string, key: string}>} */
     const updateRequests = Object.entries(repoList).flatMap(([ platform, types ]) =>
       Object.entries(types).map(([ type, repoPaths ]) => ({
-        repos: this.getRepoList(repoPaths, PluginPath?.[platform], Exclude, AutoPath),
+        repos: type === "releases"
+          ? repoPaths
+          : this.getRepoList(repoPaths, PluginPath?.[platform], Exclude, AutoPath),
         platform,
         token: tokens[platform],
         type,
