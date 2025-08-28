@@ -7,6 +7,14 @@ const GitUrl = {
   Gitcode: "https://api.gitcode.com/api/v5/repos"
 }
 
+const ApiUrl = (source) => {
+  const CfgApiUrl = Config.CodeUpdate.repos.reduce((acc, item) => {
+    acc[item.provider] = item.ApiUrl
+    return acc
+  }, {})
+  return CfgApiUrl[source] || GitUrl[source]
+}
+
 export default new class {
   /**
    * 获取仓库的最新数据
@@ -18,12 +26,8 @@ export default new class {
    * @returns {Promise<object[]>} 提交数据或false（请求失败）
    */
   async getRepositoryData(repo, source, type = "commits", token, sha) {
-    const CfgApiUrl = Config.CodeUpdate.repos.reduce((acc, item) => {
-      acc[item.provider] = item.ApiUrl
-      return acc
-    }, {})
     let isGitHub = false
-    const baseURL = CfgApiUrl[source] || GitUrl[source]
+    const baseURL = ApiUrl(source)
 
     if (source.toLowerCase === "github") isGitHub = true
     if (!baseURL) {
@@ -54,7 +58,7 @@ export default new class {
    * @returns {Promise<string|false>} 默认分支名或false（请求失败）
    */
   async getDefaultBranch(repo, source, token) {
-    const baseURL = GitUrl[source]
+    const baseURL = ApiUrl(source)
 
     if (!baseURL) {
       logger.error(`未知数据源: ${source}`)
