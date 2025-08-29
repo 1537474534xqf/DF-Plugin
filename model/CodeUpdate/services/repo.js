@@ -59,7 +59,7 @@ async function fetchUpdates(repoList, source, token, type, redisKeyPrefix, isAut
         logger.error(`${logger.magenta(source)}: ${logger.cyan(repo)} 仓库不存在`)
         return
       }
-      if (type === "commits" && branch) data = [ data ]
+      if (type === "commits" && branch && !Array.isArray(data)) data = [ data ]
       if (data.length === 0 || (type === "releases" && !data[0]?.tag_name)) {
         logger.warn(`${logger.magenta(source)}: ${logger.cyan(repo)} 数据为空`)
         return

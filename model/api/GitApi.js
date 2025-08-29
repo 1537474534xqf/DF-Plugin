@@ -26,18 +26,24 @@ export default new class {
    * @returns {Promise<object[]>} 提交数据或false（请求失败）
    */
   async getRepositoryData(repo, source, type = "commits", token, sha) {
-    let isGitHub = false
+    const isGitHub = /Github/i.test(source)
+    const isGitea = /Gitea/i.test(source)
     const baseURL = ApiUrl(source)
 
-    if (source.toLowerCase === "github") isGitHub = true
+
     if (!baseURL) {
       logger.error(`未知数据源: ${source}`)
       return "return"
     }
 
     let path
-    if (type === "commits" && sha) path = `${repo}/commits/${sha}`
-    else path = `${repo}/${type}?per_page=1`
+    if (type === "commits" && sha) {
+      isGitea ?
+        path = `${repo}/${type}?per_page=1&sha=${sha}`
+      :
+        path = `${repo}/commits/${sha}`
+
+    } else path = `${repo}/${type}?per_page=1`
 
     let url = `${baseURL}/${path}`
 
