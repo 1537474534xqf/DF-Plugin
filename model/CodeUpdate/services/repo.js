@@ -4,6 +4,7 @@ import { formatCommitInfo, formatReleaseInfo } from "./format.js"
 import { GitApi } from "../../api/index.js"
 import { AutoPathBranch } from "../constants.js"
 import { logger } from "#lib"
+import { Config } from "#components"
 
 /**
  * 获取指定仓库列表的提交记录。
@@ -66,12 +67,14 @@ async function fetchUpdates(repoList, source, token, type, redisKeyPrefix, isAut
       }
       if (isAuto) {
         const id = type === "commits" ? data[0]?.sha : data[0]?.node_id
-        if (await redisHeler.isUpToDate(repo, redisKeyPrefix, id)) {
+        const redisData = await redisHeler.isUpToDate(repo, redisKeyPrefix, id)
+        if (redisData === false) {
           logger.debug(`${logger.cyan(repo)} 暂无更新`)
           return
         }
-        logger.mark(`${logger.cyan(repo)} 检测到更新`)
         await redisHeler.updatesSha(repo, redisKeyPrefix, id, isAuto, cache)
+        if (redisData === null && !Config.CodeUpdate.FirstAdd) return
+        logger.mark(`${logger.cyan(repo)} 检测到更新`)
       }
       const info = type === "commits"
         ? formatCommitInfo(data[0], source, path, branch)

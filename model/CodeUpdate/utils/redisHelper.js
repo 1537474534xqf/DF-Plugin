@@ -6,11 +6,11 @@ import { redisKey } from "../constants.js"
  * @param {string} repo - 仓库名称或标识符。
  * @param {string} redisKeyPrefix - Redis 键的前缀。
  * @param {string} sha - 用于比对的 SHA 代码。
- * @returns {Promise<boolean>} 如果存储的 SHA 与提供的 SHA 匹配则返回 true，否则返回 false。
+ * @returns {Promise<boolean|null>} 如果存储的 SHA 与提供的 SHA 匹配则返回 true，否则返回 false。
  */
 async function isUpToDate(repo, redisKeyPrefix, sha) {
   const redisData = await redis.get(`${redisKeyPrefix}:${repo}`)
-  return redisData && JSON.parse(redisData)[0].shacode === sha
+  return redisData && JSON.parse(redisData)?.[0]?.shacode === sha
 }
 
 /**

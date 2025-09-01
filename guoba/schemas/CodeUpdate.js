@@ -18,6 +18,12 @@ export default [
     component: "Switch"
   },
   {
+    field: "CodeUpdate.FirstAdd",
+    label: "首次添加仓库是否推送",
+    bottomHelpMessage: "当第一次添加仓库进推送列表时，是否立马进行一次推送（可能会推送很久以前的数据）",
+    component: "Switch"
+  },
+  {
     field: "CodeUpdate.Cron",
     label: "自动检查定时表达式",
     helpMessage: "修改后重启生效",
