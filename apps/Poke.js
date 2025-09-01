@@ -4,7 +4,7 @@ import { Config, Poke_List, Poke_Path, Data } from "#components"
 import { logger } from "#lib"
 import _ from "lodash"
 
-if (!fs.existsSync(Poke_Path) && Config.Poke.chuo) logger.mark(" 检测到未安装戳一戳图库 将调用XY-Api返回图片")
+if (!fs.existsSync(Poke_Path) && Config.Poke.chuo) logger.mark("检测到未安装戳一戳图库 将调用XY-Api返回图片")
 
 export class DF_Poke extends plugin {
   constructor() {

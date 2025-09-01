@@ -1,6 +1,6 @@
 @font-face {
   font-family: "font";
-  src: url("../font/font.woff");
+  src: url("../font/InconsolataNerdFontPropo-Bold.ttf");
 }
 * {
   font-family: "font";
@@ -25,7 +25,7 @@ body {
   width: -moz-max-content;
   width: max-content;
   padding: 20px 15px 10px 15px;
-  background-color: #050505;
+  background-color: rgba(35, 35, 35, 0.6980392157);
 }
 
 .head_box {
@@ -53,10 +53,13 @@ body {
 .list .item {
   display: flex;
   align-items: center;
-  background: #17181C;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+          backdrop-filter: blur(12px) saturate(150%);
+  border-radius: 16px;
   padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 1px 1px 1px rgba(0, 0, 0, 0.5490196078);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.15);
 }
 .list .item .title {
   font-size: 16px;
@@ -65,10 +68,6 @@ body {
   font-weight: bold;
   display: flex;
   align-items: center;
-}
-.list .item .title .text snap {
-  text-indent: 10px;
-  color: #909195;
 }
 .list .item .title .text .icon {
   width: 18px;
