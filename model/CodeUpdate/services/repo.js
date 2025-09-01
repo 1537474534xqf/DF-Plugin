@@ -68,7 +68,7 @@ async function fetchUpdates(repoList, source, token, type, redisKeyPrefix, isAut
       if (isAuto) {
         const id = type === "commits" ? data[0]?.sha : data[0]?.node_id
         const redisData = await redisHeler.isUpToDate(repo, redisKeyPrefix, id)
-        if (redisData === false) {
+        if (redisData) {
           logger.debug(`${logger.cyan(repo)} 暂无更新`)
           return
         }
