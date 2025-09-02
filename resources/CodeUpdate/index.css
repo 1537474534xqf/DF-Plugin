@@ -69,6 +69,15 @@ body {
   display: flex;
   align-items: center;
 }
+.list .item .title .text .release {
+  font-size: 11px;
+  margin-left: 10px;
+  color: #bbbbbb;
+  border: 2px solid #bbbbbb;
+  border-radius: 18px;
+  padding: 3.5px 8px;
+  display: inline-block;
+}
 .list .item .title .text .icon {
   width: 18px;
   height: 18px;
@@ -79,7 +88,7 @@ body {
   align-items: center;
   font-size: 13px;
   margin-top: 5px;
-  color: #909195;
+  color: #C4C3C8;
 }
 .list .item .title .branch img {
   width: 13px;
@@ -88,7 +97,7 @@ body {
 }
 .list .item .title .dec {
   font-size: 13px;
-  color: #909195;
+  color: #C4C3C8;
   margin-top: 10px;
   display: flex;
   align-items: center;
@@ -134,19 +143,27 @@ body {
 }
 .list .item .title .desc ul,
 .list .item .title .desc ol {
-  padding-left: 14px;
+  padding-left: 13px;
+  text-indent: -2px;
+}
+.list .item .title .desc h1,
+.list .item .title .desc h2,
+.list .item .title .desc h3,
+.list .item .title .desc h4 {
+  margin-top: 0.5em;
+  margin-bottom: 0.8em;
 }
 .list .item .title .desc a {
   color: #90d0e4;
   text-decoration: none;
 }
 .list .item .title .stats {
-  border-top: 1px solid rgba(67, 67, 67, 0.5490196078);
-  border-bottom: 1px solid rgba(67, 67, 67, 0.5490196078);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
   margin-top: 10px;
   padding: 5px 10px;
   font-size: 13px;
-  color: #909195;
+  color: #C4C3C8;
   width: -moz-max-content;
   width: max-content;
 }

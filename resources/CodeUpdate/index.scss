@@ -80,6 +80,17 @@ body {
                 display: flex;
                 align-items: center;
 
+                .release {
+                    font-size: 11px;
+                    margin-left: 10px;
+                    color: #bbbbbb;
+                    border: 2px solid #bbbbbb;
+                    border-radius: 18px;
+                    padding: 3.5px 8px;
+                    display: inline-block;
+                }
+
+
                 .icon {
                     width: 18px;
                     height: 18px;
@@ -92,7 +103,7 @@ body {
                 align-items: center;
                 font-size: 13px;
                 margin-top: 5px;
-                color: #909195;
+                color: #C4C3C8;
 
                 img {
                     width: 13px;
@@ -103,7 +114,7 @@ body {
 
             .dec {
                 font-size: 13px;
-                color: #909195;
+                color: #C4C3C8;
                 margin-top: 10px;
                 display: flex;
                 align-items: center;
@@ -161,23 +172,19 @@ body {
 
                 ul,
                 ol {
-                    padding-left: 14px;
-
-                    // li {
-                    //     margin: 0;
-                    //     padding: 0;
-                    //     line-height: 0.8;
-                    //     text-indent: 0;
-
-                    // &::marker {
-                    //     line-height: 1;
-                    // }
-
-                    // &:not(:first-child) {
-                    //     line-height: 1.2;
-                    // }
-                    // }
+                    padding-left: 13px;
+                    text-indent: -2px;
+                    // margin-left: 8px;
                 }
+
+                h1,
+                h2,
+                h3,
+                h4 {
+                    margin-top: 0.5em;
+                    margin-bottom: 0.8em;
+                }
+
 
                 a {
                     color: #90d0e4;
@@ -186,12 +193,12 @@ body {
             }
 
             .stats {
-                border-top: 1px solid #4343438c;
-                border-bottom: 1px solid #4343438c;
+                border-top: 1px solid rgba(255, 255, 255, 0.15);
+                border-bottom: 1px solid rgba(255, 255, 255, 0.15);
                 margin-top: 10px;
                 padding: 5px 10px;
                 font-size: 13px;
-                color: #909195;
+                color: #C4C3C8;
                 width: max-content;
             }
         }

@@ -125,7 +125,7 @@ class UpdateService {
       for (const provider of Object.keys(PluginPath)) {
         acc[provider] ??= {}
         acc[provider].commits ??= []
-        acc[provider].commits.push(...this.getRepoList([], PluginPath[provider], exclude, autoPath))
+        acc[provider].commits.push(...this.getRepoList(acc[provider].commits, PluginPath[provider], exclude, autoPath))
       }
     }
 
