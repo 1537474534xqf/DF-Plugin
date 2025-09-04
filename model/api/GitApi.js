@@ -112,18 +112,19 @@ export default new class {
    */
   async getDefaultBranch(repo, source, token) {
     const baseURL = ApiUrl(source)
+    const isCNB = /cnb/i.test(source)
 
     if (!baseURL) {
       logger.error(`未知数据源: ${source}`)
       return "return"
     }
-
-    const url = `${baseURL}/${repo}`
+    let url = `${baseURL}/${repo}`
+    if (isCNB) url = `${baseURL}/${repo}/-/git/head`
 
     const headers = this.getHeaders(token, source)
     const data = await this.fetchData(url, headers, repo, source)
     if (data) {
-      return data?.default_branch
+      return isCNB ? data?.name : data?.default_branch
     } else {
       return "return"
     }
