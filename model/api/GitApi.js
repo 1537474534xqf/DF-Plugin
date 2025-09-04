@@ -4,7 +4,8 @@ import { logger } from "#lib"
 const GitUrl = {
   GitHub: "https://api.github.com/repos",
   Gitee: "https://gitee.com/api/v5/repos",
-  Gitcode: "https://api.gitcode.com/api/v5/repos"
+  Gitcode: "https://api.gitcode.com/api/v5/repos",
+  CNB: "https://api.cnb.cool"
 }
 
 const ApiUrl = (source) => {
@@ -26,34 +27,80 @@ export default new class {
    * @returns {Promise<object[]>} 提交数据或false（请求失败）
    */
   async getRepositoryData(repo, source, type = "commits", token, sha) {
-    const isGitHub = /Github/i.test(source)
-    const isGitea = /Gitea/i.test(source)
+    const sourceLower = String(source || "").toLowerCase()
+    // const isGitHub = /github/i.test(sourceLower)
+    const isGitea = /gitea/i.test(sourceLower)
+    const isGitee = /gitee/i.test(sourceLower)
+    const isCNB = /cnb/i.test(sourceLower)
+
     const baseURL = ApiUrl(source)
-
-
     if (!baseURL) {
       logger.error(`未知数据源: ${source}`)
       return "return"
     }
 
-    let path
+    let pathname = ""
+    const params = new URLSearchParams()
+
     if (type === "commits" && sha) {
-      isGitea ?
-        path = `${repo}/${type}?per_page=1&sha=${sha}`
-      :
-        path = `${repo}/commits/${sha}`
-
-    } else path = `${repo}/${type}?per_page=1`
-
-    let url = `${baseURL}/${path}`
-
-    if (!isGitHub && token) {
-      url += `${sha ? "?" : "&"}access_token=${token}`
+      if (isGitea) {
+      // Gitea: /{repo}/commits?per_page=1&sha={sha}
+        pathname = `${repo}/commits`
+        params.set("page", "1")
+        params.set("sha", sha)
+      } else if (isCNB) {
+        pathname = `${repo}/-/git/commits/${sha}`
+      } else {
+        pathname = `${repo}/commits/${sha}`
+      }
+    } else {
+      if (isCNB) {
+        pathname = `${repo}/-/git/${type}`
+        params.set("page", "1")
+      } else {
+        pathname = `${repo}/${type}`
+        isGitea
+          ? params.set("page", "1")
+          : params.set("per_page", "1")
+      }
     }
 
+    const joinUrl = (base, relative) => {
+      try {
+        const u = new URL(base)
+        const basePath = (u.pathname || "").replace(/\/+$/, "")
+        const rel = String(relative).replace(/^\/+/, "")
+        u.pathname = basePath === "" ? `/${rel}` : `${basePath}/${rel}`
+        return u.toString()
+      } catch (e) {
+        const b = String(base).replace(/\/+$/, "")
+        const r = String(relative).replace(/^\/+/, "")
+        return `${b}/${r}`
+      }
+    }
+
+    const urlBaseWithPath = joinUrl(baseURL, pathname)
+    let urlObj
+    try {
+      urlObj = new URL(urlBaseWithPath)
+    } catch (e) {
+      logger.error("构造 URL 失败", { baseURL, pathname, err: e })
+      return "return"
+    }
+
+    for (const [ k, v ] of params.entries()) urlObj.searchParams.set(k, v)
+
+    if (!isGitee && token) urlObj.searchParams.set("access_token", token)
+
     const headers = this.getHeaders(token, source)
-    const data = await this.fetchData(url, headers, repo, source)
-    return data || "return"
+
+    try {
+      const data = await this.fetchData(urlObj.toString(), headers, repo, source)
+      return data || "return"
+    } catch (err) {
+      logger.error("获取仓库数据失败", { url: urlObj.toString(), err })
+      return "return"
+    }
   }
 
   /**

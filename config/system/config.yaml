@@ -41,6 +41,11 @@ CodeUpdate:
     ApiUrl: "https://gitcode.com/api/v5/repos"
     icon: "Gitcode"
     tips: Gitcode个人Token 获取地址 https://gitcode.com/setting/token-classic
+  - provider: "CNB"
+    token: ""
+    ApiUrl: "https://api.cnb.cool"
+    icon: "CNB"
+
 
   ListTips: |-
     推送配置
