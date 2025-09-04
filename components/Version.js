@@ -162,7 +162,7 @@ try {
 //   console.error("读取或解析 package.json 出现错误:", error)
 // }
 
-const { author } = PluginPackageData
+const { author, license } = PluginPackageData
 const yunzaiVersion = packageJson.version
 const isV3 = yunzaiVersion[0] === "3"
 const isV4 = yunzaiVersion[0] === "4"
@@ -189,6 +189,9 @@ const Version = {
   name,
   isAlemonjs,
   author,
+  license,
+  PluginPackageData,
+  packageJson,
   get version() {
     return currentVersion
   },

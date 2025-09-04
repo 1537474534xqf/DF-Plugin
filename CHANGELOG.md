@@ -8,7 +8,7 @@
 
 # 2.3.0
 
-* `license: relicense project from MIT to GPL-3.0`
+* `Relicense the project from MIT to GPL - 3.0.`
   * 变更许可证为 `GPL-3.0`
   * **今后的所有贡献也将遵循 GPL-3.0 协议**
 * 添加 疾旋鼬 表情
