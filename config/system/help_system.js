@@ -143,6 +143,11 @@ export const helpList = [
         "desc": "拉取Git更新"
       },
       {
+        "icon": 17,
+        "title": "#DF清理无效数据",
+        "desc": "清理本插件占用的数据库内存"
+      },
+      {
         "icon": 2,
         "title": "#DF更新图库",
         "desc": "更新戳一戳图库"
