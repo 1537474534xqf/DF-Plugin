@@ -31,6 +31,7 @@ export default new class {
     // const isGitHub = /github/i.test(sourceLower)
     const isGitea = /gitea/i.test(sourceLower)
     const isGitee = /gitee/i.test(sourceLower)
+    const isGitcode = /gitcode/i.test(sourceLower)
     const isCNB = /cnb/i.test(sourceLower)
 
     const baseURL = ApiUrl(source)
@@ -52,6 +53,7 @@ export default new class {
         pathname = `${repo}/-/git/commits/${sha}`
       } else {
         pathname = `${repo}/commits/${sha}`
+        if (isGitcode) params.set("show_diff", "true")
       }
     } else {
       if (isCNB) {
