@@ -3,7 +3,6 @@ import cfg from "../../../lib/config/config.js"
 import makeConfig from "../../../lib/plugins/config.js"
 import fs from "node:fs/promises"
 import { Plugin_Name, Plugin_Path } from "../constants/Path.js"
-import _ from "lodash"
 
 class Config {
   plugin_name = Plugin_Name
@@ -11,17 +10,6 @@ class Config {
   /** 初始化配置 */
   async initCfg() {
     this.config = YAML.parse(await fs.readFile(`${this.plugin_path}/config/system/config.yaml`, "utf8"))
-
-    /** 导入旧配置文件 */
-    const path = `${this.plugin_path}/config/config`
-    if (await fs.stat(path).catch(() => false)) {
-      for (const file of (await fs.readdir(path)).filter(file => file.endsWith(".yaml"))) {
-        const key = file.replace(".yaml", "")
-        if (!(key in this.config)) continue
-        _.merge(this.config[key], YAML.parse(await fs.readFile(`${path}/${file}`, "utf8")))
-      }
-      await fs.rename(path, `${path}_old`)
-    }
 
     /** 保留注释 */
     const keep = {}
@@ -41,41 +29,47 @@ class Config {
     this.configSave = configSave
 
     /** 迁移 v1 配置 */
-    let changed = false
-    for (const i in this.config) {
-      if (i === "CodeUpdate") {
-        if (Array.isArray(this.config[i].List)) {
-          this.config[i].List.forEach(item => {
-            if (typeof item !== "object") return
-            const repos = []
-            const sources = [
-              { key: "GithubList", provider: "GitHub", type: "commit" },
-              { key: "GithubReleases", provider: "GitHub", type: "releases" },
-              { key: "GiteeList", provider: "Gitee", type: "commit" },
-              { key: "GiteeReleases", provider: "Gitee", type: "releases" },
-              { key: "GitcodeList", provider: "Gitcode", type: "commit" },
-              { key: "Gitcode", provider: "Gitcode", type: "releases" }
-            ]
-            for (const { key, provider, type } of sources) {
-              const list = item[key]
-              if (!Array.isArray(list)) continue
-              list.forEach(str => {
-                if (typeof str !== "string") return
-                const [ repo, branch ] = str.split(":")
-                const entry = { provider, repo, type }
-                if (branch) entry.branch = branch
-                repos.push(entry)
-              })
-              delete item[key]
-              changed = true
-            }
-            if (!Array.isArray(item.repos)) item.repos = []
-            item.repos.push(...repos)
-          })
+    const key = "DF:config:migration:v1-v2"
+    if (!await redis.get(key)) {
+      let changed = false
+      for (const i in this.config) {
+        if (i === "CodeUpdate") {
+          if (Array.isArray(this.config[i].List)) {
+            this.config[i].List.forEach(item => {
+              if (typeof item !== "object") return
+              const repos = []
+              const sources = [
+                { key: "GithubList", provider: "GitHub", type: "commit" },
+                { key: "GithubReleases", provider: "GitHub", type: "releases" },
+                { key: "GiteeList", provider: "Gitee", type: "commit" },
+                { key: "GiteeReleases", provider: "Gitee", type: "releases" },
+                { key: "GitcodeList", provider: "Gitcode", type: "commit" },
+                { key: "Gitcode", provider: "Gitcode", type: "releases" }
+              ]
+              for (const { key, provider, type } of sources) {
+                const list = item[key]
+                if (!Array.isArray(list)) continue
+                list.forEach(str => {
+                  if (typeof str !== "string") return
+                  const [ repo, branch ] = str.split(":")
+                  const entry = { provider, repo, type }
+                  if (branch) entry.branch = branch
+                  repos.push(entry)
+                })
+                delete item[key]
+                changed = true
+              }
+              if (!Array.isArray(item.repos)) item.repos = []
+              item.repos.push(...repos)
+            })
+          }
         }
       }
+      if (changed) {
+        this.configSave()
+      }
+      redis.set(key, "1")
     }
-    if (changed) this.configSave()
 
     return this
   }

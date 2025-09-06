@@ -32,9 +32,9 @@ function randomFile(dirPath) {
 function imagePoke(name = "all") {
   let List = Poke_List
   if (name == "all") {
-    const { Black } = Config.Poke
-    if (Array.isArray(Black) && Black.length > 0) {
-      List = Poke_List.filter(type => !Black.includes(type))
+    const { imageBlack } = Config.Poke
+    if (Array.isArray(imageBlack) && imageBlack.length > 0) {
+      List = Poke_List.filter(type => !imageBlack.includes(type))
     }
     name = lodash.sample(List)
   }
