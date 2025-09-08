@@ -22,3 +22,5 @@ const loadDirectories = async() => {
 loadDirectories()
 
 export { Poke_List }
+
+export const PokeGitURL = "https://cnb.cool/denfenglai/poke.git"

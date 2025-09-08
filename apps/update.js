@@ -2,6 +2,7 @@ import fs from "node:fs"
 import { exec } from "node:child_process"
 import { update as Update } from "../../other/update.js"
 import { Plugin_Name, Plugin_Path, Poke_Path } from "#components"
+import { PokeGitURL } from "../constants/Poke.js"
 
 let lock = false
 
@@ -61,7 +62,7 @@ export class DFupdate extends plugin {
    */
   executeGitCommand(e, isForce) {
     return new Promise((resolve) => {
-      const command = isForce ? "git reset --hard origin/main && git pull --rebase" : "git pull"
+      const command = isForce ? "git reset --hard origin/main && git pull --rebase" : "git pull --rebase"
       exec(command, { cwd: Poke_Path }, (error, stdout) => {
         if (error) {
           e.reply(`图片资源更新失败！\nError code: ${error.code}\n${error.stack}\n 请尝试使用 #DF强制更新图库 或稍后重试。`)
@@ -87,7 +88,7 @@ export class DFupdate extends plugin {
    */
   cloneRepository(e) {
     return new Promise((resolve) => {
-      const command = "git clone --depth=1 https://gitea.eustia.fun/XY/poke.git ./resources/poke"
+      const command = `git clone --depth=1 ${PokeGitURL} ./resources/poke`
       exec(command, { cwd: Plugin_Path }, (error) => {
         if (error) {
           e.reply(`戳一戳图库安装失败！\nError code: ${error.code}\n${error.stack}\n 请稍后重试。`)
