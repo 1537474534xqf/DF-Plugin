@@ -39,7 +39,7 @@ function imagePoke(name = "all") {
     name = lodash.sample(List)
   }
   const path = Poke_Path + "/" + name
-  if (!fs.existsSync(path)) return `https://ciallo.ciallo.pro/?name=${name}`
+  if (!fs.existsSync(path)) return `https://ciallo.hxxn.cc/?name=${name}`
   return randomFile(path)
 }
 
