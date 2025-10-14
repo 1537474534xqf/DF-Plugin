@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
+    "types": ["@kaguyajs/trss-yunzai-types"],
     "paths": {
       "#components": [ "components/index.js" ],
       "#model": [ "model/index.js" ],

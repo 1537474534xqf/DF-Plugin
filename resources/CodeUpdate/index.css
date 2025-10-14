@@ -13,7 +13,7 @@
 body {
   font-family: "Roboto", sans-serif;
   font-size: 16px;
-  color: #FAF8FC;
+  color: #faf8fc;
   transform-origin: 0 0;
   background-color: #050505;
   transform: scale(2.5);
@@ -88,7 +88,7 @@ body {
   align-items: center;
   font-size: 13px;
   margin-top: 5px;
-  color: #C4C3C8;
+  color: #c4c3c8;
 }
 .list .item .title .branch img {
   width: 13px;
@@ -97,14 +97,14 @@ body {
 }
 .list .item .title .dec {
   font-size: 13px;
-  color: #C4C3C8;
+  color: #c4c3c8;
   margin-top: 10px;
   display: flex;
   align-items: center;
   white-space: pre;
 }
 .list .item .title .dec span {
-  color: #FAF8FC;
+  color: #faf8fc;
 }
 .list .item .title .dec .avatar {
   display: flex;
@@ -122,8 +122,8 @@ body {
   content: attr(data-nameStart);
   position: absolute;
   inset: 0;
-  color: #FAF8FC;
-  background: #E67E22;
+  color: #faf8fc;
+  background: #e67e22;
   font-family: "Verdana", "Arial";
   text-align: center;
   line-height: 16px;
@@ -134,12 +134,17 @@ body {
 }
 .list .item .title .desc {
   font-size: 12px;
-  color: #C4C3C8;
+  color: #c4c3c8;
   margin-top: 10px;
+}
+.list .item .title .desc img {
+  max-width: 100%;
+  height: auto;
+  display: block;
 }
 .list .item .title .desc .head {
   font-size: 14px;
-  color: #FAF8FC;
+  color: #faf8fc;
 }
 .list .item .title .desc ul,
 .list .item .title .desc ol {
@@ -163,7 +168,7 @@ body {
   margin-top: 10px;
   padding: 5px 10px;
   font-size: 13px;
-  color: #C4C3C8;
+  color: #c4c3c8;
   width: -moz-max-content;
   width: max-content;
 }
@@ -185,9 +190,9 @@ body {
 }
 
 .additions {
-  color: #00B400;
+  color: #00b400;
 }
 
 .deletions {
-  color: #D92B2F;
+  color: #d92b2f;
 }/*# sourceMappingURL=index.css.map */

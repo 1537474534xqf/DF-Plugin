@@ -32,7 +32,7 @@ export class CodeUpdate extends plugin {
     }
   }
 
-  async cupdate(e) {
+  async cupdate(e = this.e) {
     const isPush = e.msg.includes("推送")
     e.reply(`正在${isPush ? "推送" : "检查"}仓库更新，请稍等`)
 

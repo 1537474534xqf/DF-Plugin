@@ -3,7 +3,6 @@
     src: url("../font/InconsolataNerdFontPropo-Bold.ttf");
 }
 
-
 * {
     // margin: 0;
     font-family: "font";
@@ -13,10 +12,10 @@
 }
 
 body {
-    font-family: 'Roboto', sans-serif;
+    font-family: "Roboto", sans-serif;
     font-size: 16px;
     // width: 530px;
-    color: #FAF8FC;
+    color: #faf8fc;
     transform-origin: 0 0;
     background-color: #050505;
     transform: scale(2.5);
@@ -59,15 +58,14 @@ body {
         display: flex;
         align-items: center;
 
-        background: linear-gradient(135deg,
-                rgba(255, 255, 255, 0.2),
-                rgba(255, 255, 255, 0.05));
+        background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
         backdrop-filter: blur(12px) saturate(150%);
 
         border-radius: 16px;
         padding: 15px;
 
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4),
+        box-shadow:
+            0 4px 20px rgba(0, 0, 0, 0.4),
             inset 0 1px 1px rgba(255, 255, 255, 0.2);
 
         border: 1px solid rgba(255, 255, 255, 0.15);
@@ -90,7 +88,6 @@ body {
                     display: inline-block;
                 }
 
-
                 .icon {
                     width: 18px;
                     height: 18px;
@@ -103,7 +100,7 @@ body {
                 align-items: center;
                 font-size: 13px;
                 margin-top: 5px;
-                color: #C4C3C8;
+                color: #c4c3c8;
 
                 img {
                     width: 13px;
@@ -114,14 +111,14 @@ body {
 
             .dec {
                 font-size: 13px;
-                color: #C4C3C8;
+                color: #c4c3c8;
                 margin-top: 10px;
                 display: flex;
                 align-items: center;
                 white-space: pre;
 
                 span {
-                    color: #FAF8FC
+                    color: #faf8fc;
                 }
 
                 .avatar {
@@ -140,8 +137,8 @@ body {
                             content: attr(data-nameStart);
                             position: absolute;
                             inset: 0;
-                            color: #FAF8FC;
-                            background: #E67E22;
+                            color: #faf8fc;
+                            background: #e67e22;
                             font-family: "Verdana", "Arial";
                             text-align: center;
                             line-height: 16px;
@@ -154,20 +151,24 @@ body {
                         }
                     }
                 }
-
-
             }
 
             .desc {
                 font-size: 12px;
-                color: #C4C3C8;
+                color: #c4c3c8;
                 margin-top: 10px;
                 // white-space: pre-wrap;
                 // line-height: 10px;
 
+                img {
+                    max-width: 100%;
+                    height: auto;
+                    display: block;
+                }
+
                 .head {
                     font-size: 14px;
-                    color: #FAF8FC;
+                    color: #faf8fc;
                 }
 
                 ul,
@@ -185,7 +186,6 @@ body {
                     margin-bottom: 0.8em;
                 }
 
-
                 a {
                     color: #90d0e4;
                     text-decoration: none;
@@ -198,7 +198,7 @@ body {
                 margin-top: 10px;
                 padding: 5px 10px;
                 font-size: 13px;
-                color: #C4C3C8;
+                color: #c4c3c8;
                 width: max-content;
             }
         }
@@ -223,9 +223,9 @@ body {
 }
 
 .additions {
-    color: #00B400;
+    color: #00b400;
 }
 
 .deletions {
-    color: #D92B2F;
+    color: #d92b2f;
 }
