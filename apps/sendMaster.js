@@ -110,8 +110,10 @@ export class SendMasterMsgs extends plugin {
         MsgID = extractMessageId(source.raw_message)
       } else {
         const regRet = ReplyReg.exec(e.msg)
-        if (!regRet[1]) return logger.warn("未找到消息ID")
-        else {
+        if (!regRet[1]) {
+          logger.warn("未找到消息ID")
+          return false
+        } else {
           MsgID = regRet[1].trim()
           isInput = true
         }
@@ -133,7 +135,8 @@ export class SendMasterMsgs extends plugin {
 
       group ? await this.Bot.pickGroup(group).sendMsg(message) : await this.Bot.pickFriend(id).sendMsg(message)
 
-      return e.reply("✅ 消息已送达")
+      await e.reply("✅ 消息已送达")
+      return true
     } catch (err) {
       e.reply("❎ 发生错误，请查看控制台日志")
       logger.error("回复消息时发生错误：", err)
