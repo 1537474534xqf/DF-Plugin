@@ -1,12 +1,25 @@
 {
   "compilerOptions": {
     "baseUrl": "./",
-    "types": ["@kaguyajs/trss-yunzai-types"],
+    "types": [
+      "@kaguyajs/trss-yunzai-types"
+    ],
     "paths": {
-      "#components": [ "components/index.js" ],
-      "#model": [ "model/index.js" ],
-      "#lib": [ "lib/index.js" ]
+      "#components": [
+        "components/index.js"
+      ],
+      "#model": [
+        "model/index.js"
+      ],
+      "#lib": [
+        "lib/index.js"
+      ]
     }
   },
-  "exclude": [ "node_modules", "data", "resources", "temp" ]
+  "exclude": [
+    "node_modules",
+    "data",
+    "resources",
+    "temp"
+  ]
 }

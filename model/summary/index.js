@@ -7,16 +7,14 @@ let lock = false
 let raw
 
 export default new class Summary {
-  /** 初始化外显 */
-  lint() {
+  init() {
     raw = segment.image
     this.getSummary()
-    segment.image = (file, name) => ({
-      type: "image",
-      file,
-      name,
-      summary: this.getSummary()
-    })
+    segment.image = (...args) => {
+      const im = raw(...args)
+      im.summary ??= this.getSummary()
+      return im
+    }
   }
 
   /** 获取外显 */
@@ -48,9 +46,9 @@ export default new class Summary {
    */
   async Switch(value) {
     if (value) {
-      this.lint()
+      this.init()
     } else {
-      segment.image = raw
+      if (typeof raw == "function") segment.image = raw
     }
   }
 }()

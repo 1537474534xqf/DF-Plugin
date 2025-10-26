@@ -33,7 +33,7 @@ export class SendMasterMsgs extends plugin {
 
   /**
    * 联系主人
-   * @param {object} e - 消息事件
+   * @param {typeof this.e} e - 消息事件
    */
   async contact(e) {
     if (Sending) return e.reply("❎ 已有发送任务正在进行中，请稍候重试")
