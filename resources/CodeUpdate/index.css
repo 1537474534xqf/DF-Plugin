@@ -10,7 +10,8 @@
   font-family: "font";
   box-sizing: border-box;
   -webkit-user-select: none;
-  user-select: none;
+  -moz-user-select: none;
+       user-select: none;
 }
 
 body {
@@ -25,6 +26,7 @@ body {
 .container {
   max-width: 630px;
   min-width: 500px;
+  width: -moz-max-content;
   width: max-content;
   padding: 20px 15px 10px 15px;
   background-color: rgba(35, 35, 35, 0.6980392157);
@@ -55,7 +57,8 @@ body {
   display: flex;
   align-items: center;
   background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.05));
-  backdrop-filter: blur(12px) saturate(150%);
+  -webkit-backdrop-filter: blur(12px) saturate(150%);
+          backdrop-filter: blur(12px) saturate(150%);
   border-radius: 16px;
   padding: 15px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4), inset 0 1px 1px rgba(255, 255, 255, 0.2);
@@ -169,6 +172,7 @@ body {
   padding: 5px 10px;
   font-size: 13px;
   color: #c4c3c8;
+  width: -moz-max-content;
   width: max-content;
 }
 
@@ -240,7 +244,7 @@ body {
 
 .prefix-fix {
   background-color: #fd7e14;
-  color: #ffee00;
+  color: white;
 }
 
 .prefix-docs {
@@ -311,5 +315,4 @@ body {
   border: 2px solid #5a4bd4;
   vertical-align: middle;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
+}/*# sourceMappingURL=index.css.map */
