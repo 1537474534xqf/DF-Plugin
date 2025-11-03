@@ -1,4 +1,4 @@
-![DF-Plugin](https://socialify.git.ci/DenFengLai/DF-Plugin/image?custom_language=JavaScript&description=1&font=Raleway&language=1&name=1&pattern=Plus&theme=Auto)
+![DF-Plugin](https://socialify.git.ci/DenFengLai/DF-Plugin/image?custom_language=JavaScript&description=1&font=Raleway&language=1&name=1&pattern=Plus&theme=Auto&logo=https%3A%2F%2Fgithub.com%2FDenFengLai.png)
 
 [![Gitee stars](https://gitee.com/DenFengLai/DF-Plugin/badge/star.svg?theme=dark)](https://gitee.com/DenFengLai/DF-Plugin/stargazers)
 [![Gitee forks](https://gitee.com/DenFengLai/DF-Plugin/badge/fork.svg?theme=dark)](https://gitee.com/DenFengLai/DF-Plugin/members)
