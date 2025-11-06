@@ -39,8 +39,9 @@ export const apiHandlers = [
   {
     reg: "腿子?",
     fnc: async() => {
-      const link = (await request.get("https://api.suyanw.cn/api/meitui.php", { responseType: "text" }))
-        .match(/https?:\/\/[^ ]+/)?.[0]
+      const link = (await request.get("https://api.suyanw.cn/api/meitui.php?type=json", { responseType: "json" }))
+        .text
+        .replace(/\\/g, "/")
       return [
         "看吧涩批！",
         segment.image(link)
