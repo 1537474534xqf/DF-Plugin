@@ -50,7 +50,7 @@ const Data = {
   },
 
   /** JSON缓存 */
-  JSONCache: {},
+  JSONCache: new Map(),
   /**
    * 获取JSON文件并缓存
    * @param {string} file 文件相对路径
@@ -60,11 +60,11 @@ const Data = {
   getJSON(file = "", root = "") {
     root = getRoot(root)
     const filePath = path.resolve(root, file)
-    if (this.JSONCache[filePath]) return this.JSONCache[filePath]
+    if (this.JSONCache.get(filePath)) return this.JSONCache.get(filePath)
     if (fs.existsSync(filePath)) {
       try {
         const data = JSON.parse(fs.readFileSync(filePath, "utf8"))
-        this.JSONCache[filePath] = data
+        if (data) this.JSONCache.set(filePath, data)
         return data
       } catch (e) {
         logger.error("读取JSON文件错误", e)
@@ -108,7 +108,7 @@ const Data = {
     try {
       const filePath = path.resolve(root, file)
       fs.writeFileSync(filePath, JSON.stringify(data, null, space))
-      this.JSONCache[filePath] = data
+      this.JSONCache.set(filePath, data)
       return true
     } catch (err) {
       logger.error(err)
