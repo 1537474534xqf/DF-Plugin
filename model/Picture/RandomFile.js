@@ -3,7 +3,6 @@ import lodash from "lodash"
 import path from "node:path"
 import { logger } from "#lib"
 import { Poke_Path, Poke_List, Config } from "#components"
-import { pathToFileURL } from "node:url"
 
 /**
  * 随机获取一个文件
@@ -21,7 +20,7 @@ function randomFile(dirPath) {
       return null
     }
     const fileName = lodash.sample(files)
-    return pathToFileURL(path.join(dirPath, fileName))
+    return path.join(dirPath, fileName)
   } catch (err) {
     logger.error(`获取文件错误: ${dirPath}\n${err}`)
     return null
