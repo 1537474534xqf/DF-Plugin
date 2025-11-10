@@ -3,6 +3,7 @@ import lodash from "lodash"
 import path from "node:path"
 import { logger } from "#lib"
 import { Poke_Path, Poke_List, Config } from "#components"
+import { pathToFileURL } from "node:url"
 
 /**
  * 随机获取一个文件
@@ -11,15 +12,18 @@ import { Poke_Path, Poke_List, Config } from "#components"
  */
 function randomFile(dirPath) {
   try {
-    const files = fs.readdirSync(dirPath)
+    const files = fs.readdirSync(dirPath, { withFileTypes: true })
+      .filter(dirent => dirent.isFile())
+      .map(dirent => dirent.name)
+
     if (files.length === 0) {
       logger.error(` 获取文件失败: ${dirPath}`)
       return null
     }
     const fileName = lodash.sample(files)
-    return path.join(dirPath, fileName)
+    return pathToFileURL(path.join(dirPath, fileName))
   } catch (err) {
-    logger.error(` 获取文件错误: ${dirPath}\n${err}`)
+    logger.error(`获取文件错误: ${dirPath}\n${err}`)
     return null
   }
 }
