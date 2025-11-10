@@ -48,6 +48,7 @@ export function formatCommitInfo(data, source, repo, branch) {
 
 export function formatMessage(message) {
   if (!message) return "<span class=\"head\">无提交信息</span>"
+  message = replaceEmojiCodes(message)
 
   const lines = message.split("\n")
   const parsedInfo = parseTitle(lines[0].trim())
@@ -75,6 +76,13 @@ export function formatMessage(message) {
   return lines.join("<br>")
 }
 
+function replaceEmojiCodes(text) {
+  for (const [ code, emoji ] of Object.entries(EMOJI_MAP)) {
+    text = text.replaceAll(code, emoji)
+  }
+  return text
+}
+
 function parseTitle(title) {
   if (title.toLowerCase().startsWith("merge pull request")) {
     const prMatch = title.match(/#(\d+) from (\S+)/i)
@@ -88,15 +96,14 @@ function parseTitle(title) {
     }
   }
 
-  const convRegex = /^(?:(\p{Emoji}|:[a-zA-Z0-9_]+:))?\s*(\w+)(?:\(([^)]+)\))?:\s*(.+)$/iu
+  const convRegex = /^(?:(\p{Emoji}))?\s*(\w+)(?:\(([^)]+)\))?:\s*(.+)$/iu
   const parts = title.match(convRegex)
   if (parts) {
-    const [ , rawEmoji, type, scope, subject ] = parts
-    const emoji = EMOJI_MAP[rawEmoji] || rawEmoji
+    const [ , emoji, type, scope, subject ] = parts
     if (COMMIT_TYPES.has(type.toLowerCase())) {
       return {
         type: type.toLowerCase(),
-        scope: scope || undefined,
+        scope,
         subject,
         emoji,
         isPr: false
