@@ -53,6 +53,25 @@ export function formatMessage(message) {
   const parsedInfo = parseTitle(lines[0].trim())
   lines[0] = commitTitle(parsedInfo)
 
+  const rest = lines.slice(1).join("\n").trim()
+  if (!rest) return lines.join("<br>")
+
+  let tokens
+  try {
+    tokens = marked.lexer(rest)
+  } catch {
+    return lines.join("<br>")
+  }
+
+  const isMarkdown = tokens.some(
+    token => token.type !== "paragraph" || token.raw.includes("\n")
+  )
+
+  if (isMarkdown) {
+    const html = marked(rest)
+    return `${lines[0]}<br>${html}`
+  }
+
   return lines.join("<br>")
 }
 
