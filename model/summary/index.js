@@ -9,7 +9,8 @@ let raw
 export default new class Summary {
   init() {
     raw = segment.image
-    this.getSummary()
+    Sum = this.getSummary("ciallo")
+    if (Config.summary.type === 2) this.getSummaryApi()
     segment.image = (...args) => {
       const im = raw(...args)
       im.summary ??= this.getSummary()
@@ -17,14 +18,25 @@ export default new class Summary {
     }
   }
 
-  /** 获取外显 */
-  getSummary() {
-    if (Config.summary.type === 1) return Config.summary.text
-    else if (Config.summary.type === 2) {
-      const data = Sum
-      this.getSummaryApi()
-      return data
-    } else if (Config.summary.type === 3) return _.sample(Config.summary.list)
+  /**
+   * 获取外显
+   * @param {1|2|3|"ciallo"} type
+   */
+  getSummary(type = Config.summary.type) {
+    switch (type) {
+      case 1:
+        return Config.summary.text
+      case 2: {
+        const data = Sum
+        this.getSummaryApi()
+        return data
+      }
+      case 3:
+        return _.sample(Config.summary.list)
+      case "ciallo":
+      default:
+        return "Ciallo ~ (∠・ω< )⌒★"
+    }
   }
 
   /** 更新一言外显 */
@@ -32,7 +44,11 @@ export default new class Summary {
     if (lock) return
     lock = true
     try {
-      Sum = await request.get(Config.summary.api, { responseType: "text", log: false }) || Sum
+      const data = await request.get(Config.summary.api, { responseType: "text", log: false })
+      if (data) {
+        logger.debug("一言外显更新失败")
+        Sum = data
+      }
     } catch (err) {
       logger.error(`获取一言接口时发生错误：${err}`)
     } finally {
@@ -48,7 +64,7 @@ export default new class Summary {
     if (value) {
       this.init()
     } else {
-      if (typeof raw == "function") segment.image = raw
+      if (typeof raw === "function") segment.image = raw
     }
   }
 }()

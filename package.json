@@ -22,7 +22,7 @@
   "license": "GPL-3.0-only",
   "dependencies": {
     "https-proxy-agent": "^7.0.6",
-    "marked": "^16.4.1",
+    "marked": "^17.0.0",
     "ulid": "^3.0.1"
   },
   "devDependencies": {
